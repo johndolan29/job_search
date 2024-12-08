@@ -1,0 +1,105 @@
+filename: "jobs.csv"
+search_job_titles: ["Job Title 1", "Job Title 2"]
+remote_list: [False, True]
+search_locations: ["Location 1", "Location 2", "Location 3"]
+default_location: "Location 1"
+distances: [200]  # in miles
+min_salary: 1
+
+desired_job_titles: # make sure these are ranked in order of preference
+  - 'Desired Job Title 1'
+  - 'Desired Job Title 2'
+  - 'Desired Job Title 3'
+
+
+acceptable_job_titles: # make sure these are ranked in order of preference
+  - 'Acceptable Job Title 1'
+  - 'Acceptable Job Title 2'
+  - 'Acceptable Job Title 3'
+
+
+non_job_title_keywords:
+  - 'Keyword 1'
+  - 'Keyword 2'
+  - 'Keyword 3'
+
+
+locations:
+  - Location 1
+  - Location 2
+  - Location 3
+
+
+nice_to_have_keywords:
+  - Keyword 1
+  - Keyword 2
+  - Keyword 3
+
+industry_keywords: [
+    "health",
+    "finance",
+    "banking",
+    "insurance",
+    "retail",
+    "ecom",
+    "manufacturing",
+    "education",
+    "government",
+    "consulting",
+    "advertising",
+    "marketing",
+    "energy",
+    "telecom",
+    "telecommunications",
+    "telco",
+    "media",
+    "software",
+    "hardware",
+    "B2B",
+    "transport",
+    "logistics",
+    "construction",
+    "agriculture",
+    "mining",
+    "pharma",
+    "biotech",
+    "food",
+    "beverage",
+    "hospitality",
+    "tourism",
+    "entertainment",
+    "sport",
+    "nonprofit",
+    "charity",
+    "ngo",
+    "public",
+    "private",
+    "startup",
+    "scaleup",
+]
+
+columns_list: [
+    "site",
+    "job_url",
+    "job_url_direct",
+    "title",
+    "company",
+    "industry",
+    "location",
+    "date_posted",
+    "salary_source",
+    "is_remote",
+    "job_level",
+    "job_function",
+    "emails",
+    "description",
+    "company_industry",
+    "company_url",
+    "company_addresses",
+    "company_num_employees",
+    "company_revenue",
+    "company_description",
+    "score",
+    "salary",
+    "days_per_week",
+]

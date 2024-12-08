@@ -84,8 +84,10 @@ def load_and_process_data(file_path, config):
 file_path = config["filename"]
 full_data, top_jobs = load_and_process_data(file_path, config)
 
+latest_rundate = full_data["rundate"].max().strftime("%Y-%m-%d")
+
 #################
-st.title("Top Jobs Dashboard")
+st.title(f"Top Jobs Dashboard - {latest_rundate}")
 
 page = st.radio(
     "Choose a page", ["Job Listings", "Time Series Analysis"], horizontal=True

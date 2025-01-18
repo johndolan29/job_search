@@ -78,7 +78,11 @@ def run_jobs_search(jobs_dict_list):
             google_search_term=google_search_term,
             location=job_dict["location"],
             distance=job_dict["distance"],
+<<<<<<< Updated upstream
             results_wanted=100,
+=======
+            results_wanted=100,  # linkedin only returns 25 results
+>>>>>>> Stashed changes
             hours_old=24 * 7,
             country_indeed="UK",
             is_remote=job_dict["is_remote"],

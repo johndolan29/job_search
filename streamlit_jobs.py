@@ -10,12 +10,11 @@ config["job_titles"] = (
     config["desired_job_titles"] + config["acceptable_job_titles"]
 )
 
-st.set_page_config(layout="wide")
 st.markdown(
     """
     <style>
     /* Remove top whitespace */
-    div.block-container { padding-top: 1rem; }
+    div.block-container { padding-top: 1rem }
     </style>
     """,
     unsafe_allow_html=True,
@@ -23,7 +22,7 @@ st.markdown(
 
 
 #################
-@st.cache_data
+@st.cache_data(ttl=3600)  # Cache for 1 hour
 def load_and_process_data(file_path, config):
     full_data = pd.read_csv(file_path)
     full_data['date_posted'] = full_data['date_posted'].str[:10]
@@ -53,6 +52,7 @@ def load_and_process_data(file_path, config):
         "location": truncate_string,
         "industry": truncate_string,
     }
+
     latest_data = latest_data.apply(
         lambda x: x.apply(
             lambda y: (mapping[x.name](y) if x.name in mapping else y)
@@ -90,9 +90,14 @@ def load_and_process_data(file_path, config):
 file_path = config["filename"]
 full_data, top_jobs = load_and_process_data(file_path, config)
 
+<<<<<<< Updated upstream
 #latest_rundate = full_data["rundate"].max().strftime("%Y-%m-%d")
 latest_rundate = (
     full_data["rundate"]
+=======
+latest_rundate = (
+    full_data[full_data.rundate.dtype == "datetime64[ns]"]["rundate"]
+>>>>>>> Stashed changes
     .max()
     .strftime("%Y-%m-%d")
 )

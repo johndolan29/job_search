@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
-
 from utils import (
     load_config,
     make_clickable,
@@ -19,7 +13,9 @@ import pandas as pd
 from itertools import product
 import os
 
-config = load_config("/home/pi/job_search/config.yaml")
+config = load_config(
+    "C:/Users/johnd/Programming/linkedin_job_search/config.yaml"
+)
 default_location = config["default_location"]
 
 jobs_dict_list = [
@@ -45,9 +41,6 @@ today = pd.Timestamp.now().strftime("%d/%m/%Y")
 filename = config["filename"]
 
 
-# In[12]:
-
-
 # if remote job, set location to default_location
 for job in jobs_dict_list:
     if job["is_remote"]:
@@ -55,9 +48,6 @@ for job in jobs_dict_list:
 
 # remove duplicates
 jobs_dict_list = [dict(t) for t in {tuple(d.items()) for d in jobs_dict_list}]
-
-
-# In[13]:
 
 
 def run_jobs_search(jobs_dict_list):
@@ -73,7 +63,7 @@ def run_jobs_search(jobs_dict_list):
         )
 
         jobs = scrape_jobs(
-            site_name=["indeed", "google", "linkedin"],
+            site_name=["indeed", "google"],
             search_term=job_dict["job_title"],
             google_search_term=google_search_term,
             location=job_dict["location"],
@@ -97,9 +87,6 @@ def run_jobs_search(jobs_dict_list):
     )
     jobs_df["rundate"] = str(today)
     return jobs_df
-
-
-# In[14]:
 
 
 if not os.path.exists(filename):

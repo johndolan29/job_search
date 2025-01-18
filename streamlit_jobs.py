@@ -26,19 +26,15 @@ st.markdown(
 @st.cache_data
 def load_and_process_data(file_path, config):
     full_data = pd.read_csv(file_path)
-    full_data['date_posted'] = full_data['date_posted'].str[:10]
+    full_data["date_posted"] = full_data["date_posted"].str[:10]
     full_data["date_posted"] = pd.to_datetime(
-        full_data["date_posted"], format="%Y-%m-%d", errors='coerce'
+        full_data["date_posted"], format="%Y-%m-%d", errors="coerce"
     )
-    #full_data["rundate"] = pd.to_datetime(
-    #    full_data["rundate"], format="%d/%m/%Y"
-    #)
-    full_data["rundate"] = pd.to_datetime(full_data["rundate"], errors="coerce", format="%d/%m/%Y")
+
+    full_data["rundate"] = pd.to_datetime(
+        full_data["rundate"], errors="coerce", format="%d/%m/%Y"
+    )
     max_date = full_data["date_posted"].max()
-    #max_date = (
-    #	    full_data[full_data.rundate.dtype == "datetime64[ns]"]["rundate"]
-    #	    .max()
-    #	)
 
     full_data = post_processing(full_data, config)
     latest_data = full_data[full_data["rundate"].dt.date == max_date.date()]
@@ -59,7 +55,7 @@ def load_and_process_data(file_path, config):
         )
     )
 
-    # Make links clickable
+    # Make links clickable in Pandas display
     top_jobs["job_url"] = top_jobs["job_url"].apply(
         lambda x: (
             f'<a href="{x}" target="_blank">Link</a>'
@@ -90,12 +86,7 @@ def load_and_process_data(file_path, config):
 file_path = config["filename"]
 full_data, top_jobs = load_and_process_data(file_path, config)
 
-#latest_rundate = full_data["rundate"].max().strftime("%Y-%m-%d")
-latest_rundate = (
-    full_data["rundate"]
-    .max()
-    .strftime("%Y-%m-%d")
-)
+latest_rundate = full_data["rundate"].max().strftime("%Y-%m-%d")
 
 #################
 st.title(f"Top Jobs Dashboard - {latest_rundate}")
@@ -139,7 +130,6 @@ if page == "Job Listings":
     for col_obj, col_name in zip(header_cols, headers):
         col_obj.markdown(f"**{col_name}**")
 
-    # Initialize Modal
     modal = Modal(key="description_modal", title="Job Description")
 
     for i, row in top_jobs.iterrows():
@@ -172,12 +162,16 @@ if page == "Job Listings":
 
 elif page == "Time Series Analysis":
     job_counts = (
-        full_data.drop_duplicates(subset=['title', 'company', 'date_posted', 'location' ])
+        full_data.drop_duplicates(
+            subset=["title", "company", "date_posted", "location"]
+        )
         .groupby("date_posted")
         .size()
         .reset_index(name="count")
     )
-    job_counts["date_posted"] = pd.to_datetime(job_counts["date_posted"], format='mixed')
+    job_counts["date_posted"] = pd.to_datetime(
+        job_counts["date_posted"], format="mixed"
+    )
     print(job_counts)
 
     chart = (

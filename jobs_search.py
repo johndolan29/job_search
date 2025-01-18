@@ -14,7 +14,7 @@ from itertools import product
 import os
 
 config = load_config(
-    "C:/Users/johnd/Programming/linkedin_job_search/config.yaml"
+    "/home/pi/job_search/config.yaml"
 )
 default_location = config["default_location"]
 
@@ -63,7 +63,7 @@ def run_jobs_search(jobs_dict_list):
         )
 
         jobs = scrape_jobs(
-            site_name=["indeed", "google"],
+            site_name=["indeed", "google", "linkedin"],
             search_term=job_dict["job_title"],
             google_search_term=google_search_term,
             location=job_dict["location"],
@@ -95,7 +95,7 @@ if not os.path.exists(filename):
 else:
     existing_jobs_df = pd.read_csv(filename)
     unique_dates = existing_jobs_df["rundate"].unique()
-    if today in unique_dates:
+    if today not in unique_dates:
         print("Jobs already fetched today")
         jobs_df = existing_jobs_df
     else:

@@ -12,6 +12,7 @@ import pandas as pd
 
 from itertools import product
 import os
+import time
 
 config = load_config(
     "/home/pi/job_search/config.yaml"
@@ -77,6 +78,7 @@ def run_jobs_search(jobs_dict_list):
         )
 
         jobs_dfs.append(jobs)
+        time.sleep(60*30)
 
     jobs_df = pd.concat(jobs_dfs)
 
@@ -95,7 +97,7 @@ if not os.path.exists(filename):
 else:
     existing_jobs_df = pd.read_csv(filename)
     unique_dates = existing_jobs_df["rundate"].unique()
-    if today not in unique_dates:
+    if today in unique_dates:
         print("Jobs already fetched today")
         jobs_df = existing_jobs_df
     else:

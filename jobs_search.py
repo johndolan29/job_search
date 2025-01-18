@@ -19,7 +19,7 @@ import pandas as pd
 from itertools import product
 import os
 
-config = load_config("config.yaml")
+config = load_config("/home/pi/job_search/config.yaml")
 default_location = config["default_location"]
 
 jobs_dict_list = [
@@ -73,12 +73,12 @@ def run_jobs_search(jobs_dict_list):
         )
 
         jobs = scrape_jobs(
-            site_name=["indeed", "glassdoor", "google", "linkedin"],
+            site_name=["indeed", "google", "linkedin"],
             search_term=job_dict["job_title"],
             google_search_term=google_search_term,
             location=job_dict["location"],
             distance=job_dict["distance"],
-            results_wanted=200,
+            results_wanted=100,
             hours_old=24 * 7,
             country_indeed="UK",
             is_remote=job_dict["is_remote"],

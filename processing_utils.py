@@ -103,7 +103,7 @@ def post_processing(jobs_df, config):
         ]
 
     # remove jobs with USD currency
-    jobs_df = jobs_df[~jobs_df["currency"].str.contains("USD", na=False)]
+    jobs_df = jobs_df[~jobs_df["currency"].astype(str).str.contains("USD", na=False)]
 
     jobs_df.sort_values(by="score", ascending=False, inplace=True)
 

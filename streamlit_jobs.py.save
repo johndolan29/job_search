@@ -26,7 +26,6 @@ st.markdown(
 @st.cache_data
 def load_and_process_data(file_path, config):
     full_data = pd.read_csv(file_path)
-    full_data['date_posted'] = full_data['date_posted'].str[:10]
     full_data["date_posted"] = pd.to_datetime(
         full_data["date_posted"], format="%Y-%m-%d", errors='coerce'
     )
@@ -43,7 +42,7 @@ def load_and_process_data(file_path, config):
     full_data = post_processing(full_data, config)
     latest_data = full_data[full_data["rundate"].dt.date == max_date.date()]
     top_jobs, _ = get_top_jobs(
-        latest_data, config["columns_list"], threshold=3
+        latest_data, config["columns_list"], threshold=2
     )
 
     # Truncate values
@@ -172,13 +171,12 @@ if page == "Job Listings":
 
 elif page == "Time Series Analysis":
     job_counts = (
-        full_data.drop_duplicates(subset=['title', 'company', 'date_posted', 'location' ])
+        full_data.drop_duplicates(subsets=[''])
         .groupby("date_posted")
         .size()
         .reset_index(name="count")
     )
-    job_counts["date_posted"] = pd.to_datetime(job_counts["date_posted"], format='mixed')
-    print(job_counts)
+    job_counts["date_posted"] = pd.to_datetime(job_counts["date_posted"])
 
     chart = (
         alt.Chart(job_counts)

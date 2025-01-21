@@ -1,0 +1,23 @@
+name: Enhancement
+description: Suggest an enhancement feature
+labels: ["enhancement"]
+projects: ["johndolan29/5"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the sections below to help everyone understand what needs to be done
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      placeholder: The model needs to be able to handle null values in the dataset
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution
+      placeholder: Why is this enhancement needed? What problem does it solve? Who will benefit from this enhancement?
+    validations:
+      required: true

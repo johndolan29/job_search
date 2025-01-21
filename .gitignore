@@ -170,3 +170,5 @@ cython_debug/
 
 *.csv
 config.yaml
+*.ipynb
+*.save

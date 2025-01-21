@@ -24,7 +24,6 @@ def post_processing(jobs_df, config):
         extract_days_per_week
     )
 
-
     jobs_df["is_remote"] = jobs_df.apply(
         lambda row: (True if row["is_remote"] else False),
         axis=1,
@@ -66,6 +65,7 @@ def post_processing(jobs_df, config):
         "score",
     ] -= 1
 
+    # commented this out as I can't trust the remote flag yet
     # add score of 1 if the job is remote
     # jobs_df.loc[jobs_df["is_remote"], "score"] += 1
 
@@ -104,15 +104,17 @@ def post_processing(jobs_df, config):
         ]
 
     # remove jobs with USD currency
-    jobs_df = jobs_df[~jobs_df["currency"].astype(str).str.contains("USD", na=False)]
+    jobs_df = jobs_df[
+        ~jobs_df["currency"].astype(str).str.contains("USD", na=False)
+    ]
 
     jobs_df.sort_values(by="score", ascending=False, inplace=True)
 
     return jobs_df
 
 
-def get_top_jobs(jobs_df, columns_list, threshold=2):
-    must_have_in_job_title = "Data Scie"
+def get_top_jobs(jobs_df, columns_list, config, threshold=2):
+    must_have_in_job_title = config["must_have_in_title"]
     must_have_in_job_title = must_have_in_job_title.lower()
     data_science_jobs = jobs_df[
         jobs_df["title"].str.lower().str.contains(must_have_in_job_title)

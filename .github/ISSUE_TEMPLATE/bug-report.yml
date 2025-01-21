@@ -1,0 +1,23 @@
+name: Bug Report
+description: Report a bug
+labels: ["bug"]
+projects: ["johndolan29/5"] # Add the name of the project board you want to add this issue to
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the sections below to help everyone identify and fix the bug
+  - type: textarea
+    id: problem
+    attributes:
+      label: Describe the problem
+      placeholder: I get an error when I run X notebook in cell Y
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Definition of Done
+      placeholder: Check for nulls in the dataset and ensure the code runs without errors
+    validations:
+      required: true

@@ -1,0 +1,5 @@
+blank_issues_enabled: True
+contact_links:
+  - name: FAQs
+    url: https://github.com/johndolan29/repo_template/wiki
+    about: Check out our wiki page.

@@ -24,6 +24,7 @@ def post_processing(jobs_df, config):
         extract_days_per_week
     )
 
+
     jobs_df["is_remote"] = jobs_df.apply(
         lambda row: (True if row["is_remote"] else False),
         axis=1,
@@ -66,7 +67,7 @@ def post_processing(jobs_df, config):
     ] -= 1
 
     # add score of 1 if the job is remote
-    jobs_df.loc[jobs_df["is_remote"], "score"] += 1
+    # jobs_df.loc[jobs_df["is_remote"], "score"] += 1
 
     # add score of 1 if nice_to_have_keywords are in the description
     for keyword in config["nice_to_have_keywords"]:

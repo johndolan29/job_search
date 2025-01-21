@@ -73,4 +73,4 @@ Update paths and parameters based on your requirements.
     - *Time Series Analysis*: Shows the number of jobs posted over time in a bar chart.
 
 ### Contributing
-Contributions are welcome! Please feel free to submit a pull request or raise issues for bug fixes and feature requests.
+Contributions are welcome! This is a first draft version. Please feel free to submit a pull request or raise issues for bug fixes and feature requests.

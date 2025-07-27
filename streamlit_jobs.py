@@ -39,7 +39,7 @@ def load_and_process_data(file_path, config):
     full_data = post_processing(full_data, config)
     latest_data = full_data[full_data["rundate"].dt.date == max_date.date()]
     top_jobs, _ = get_top_jobs(
-        latest_data, config["columns_list"], threshold=2
+        latest_data, config["columns_list"], config, threshold=2
     )
 
     # Truncate values

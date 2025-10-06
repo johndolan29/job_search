@@ -26,6 +26,7 @@ st.markdown(
 @st.cache_data
 def load_and_process_data(file_path, config):
     full_data = pd.read_csv(file_path)
+    print("Data Read Complete")
     full_data["date_posted"] = full_data["date_posted"].str[:10]
     full_data["date_posted"] = pd.to_datetime(
         full_data["date_posted"], format="%Y-%m-%d", errors="coerce"
@@ -36,7 +37,13 @@ def load_and_process_data(file_path, config):
     )
     max_date = full_data["date_posted"].max()
 
+    # take the last 60 days of data
+    full_data = full_data[
+        full_data["date_posted"] >= (max_date - pd.Timedelta(days=30))
+    ]
+
     full_data = post_processing(full_data, config)
+    print("Post Processing Complete")
     latest_data = full_data[full_data["rundate"].dt.date == max_date.date()]
     top_jobs, _ = get_top_jobs(
         latest_data, config["columns_list"], config, threshold=2
@@ -79,7 +86,7 @@ def load_and_process_data(file_path, config):
     top_jobs["is_remote"] = top_jobs["is_remote"].map(
         {True: "Yes", False: "No"}
     )
-
+    print("Top Jobs Extraction Complete")
     return full_data, top_jobs
 
 
